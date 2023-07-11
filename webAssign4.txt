@@ -1,0 +1,309 @@
+💡 **Q.1** Hoisting in JavaScript refers to the behavior of moving variable and function declarations to the top of their containing scope during the compilation phase, before the code is executed. This means that regardless of where declarations are made within a scope, they are treated as if they were at the top of the scope. However, only the declarations are hoisted, not the initializations.
+
+For example, consider the following code snippet:
+
+```javascript
+console.log(x); // undefined
+var x = 10;
+```
+
+In this case, the variable `x` is hoisted to the top of its scope, so the `console.log()` statement does not result in an error. However, since the initialization of `x` is not hoisted, the value is `undefined` at the time of the `console.log()` statement.
+
+Similarly, function declarations are also hoisted. For instance:
+
+```javascript
+foo(); // "Hello, world!"
+
+function foo() {
+  console.log("Hello, world!");
+}
+```
+
+In this example, the function declaration for `foo()` is hoisted to the top of the scope, allowing it to be called before its actual declaration in the code.
+
+It's important to note that only the declarations are hoisted, not variable assignments or function expressions. So, if you use a variable or function expression before it is declared, you will encounter an error.
+
+💡 **Q.2** The Temporal Dead Zone (TDZ) is a behavior in JavaScript that occurs when variables declared with `let` and `const` are accessed before they are assigned a value. During the TDZ, trying to access these variables results in a `ReferenceError`. The TDZ exists from the start of the scope where the variable is declared until the variable is assigned a value.
+
+For example:
+
+```javascript
+console.log(x); // ReferenceError: Cannot access 'x' before initialization
+let x = 10;
+```
+
+In this case, the variable `x` is declared using `let`, but trying to access it before the assignment results in a `ReferenceError` due to the TDZ.
+
+The TDZ serves as a mechanism to catch potential errors caused by accessing variables before they are assigned, promoting better coding practices.
+
+💡 **Q.3** The main difference between `var` and `let` is how they scope variables.
+
+- `var` has function scope or global scope, meaning that a variable declared with `var` is accessible throughout the entire function in which it is declared or, if declared outside any function, it becomes a global variable accessible throughout the entire script.
+
+- `let`, on the other hand, has block scope, meaning that a variable declared with `let` is only accessible within the block ({ ... }) in which it is declared.
+
+Additionally, variables declared with `var` are hoisted (see Q.1 for hoisting explanation), whereas variables declared with `let` are not hoisted and remain in the TDZ until they are assigned a value.
+
+Here's an example illustrating the difference:
+
+```javascript
+function example() {
+  if (true) {
+    var x = 10;
+    let y = 20;
+  }
+  
+  console.log(x); // 10
+  console.log(y); // ReferenceError: y is not defined
+}
+
+example();
+```
+
+In this example, `x` is accessible outside the `if` block because it was declared with `var`, whereas `y` is only accessible within the `if` block due to being declared with `let`.
+
+💡 **Q.4** ECMAScript 6 (ES6), also known as ECMAScript 2015, introduced several major features and enhancements to the JavaScript language. Some of the key features introduced in ES6 include:
+
+1. **let** and **const**: The `let` and `const` keywords were introduced as alternatives to `var` for declaring variables with block scope and immutable values, respectively.
+
+2. **Arrow Functions**: Arrow functions provide a more concise syntax for writing function expressions.
+
+3. **Template Literals**: Template literals allow for easier string interpolation and multiline strings using backticks (`).
+
+4. **Enhanced Object Literals**: ES6 introduced new syntax for defining properties and methods in object literals, including shorthand property names, computed property names, and method definitions.
+
+5. **Destructuring Assignment**: Destructuring assignment allows for extracting values from arrays and objects into individual variables, making it easier to work with complex data structures.
+
+6. **Spread Operator**: The spread operator (`...`) allows for expanding arrays and objects in places where multiple arguments or elements are expected.
+
+7. **Classes**: ES6 introduced a more familiar syntax for defining classes in JavaScript, making it easier to work with object-oriented programming paradigms.
+
+8. **Modules**: ES6 added native support for modules, allowing developers to organize their code into separate files and import/export functionality between them.
+
+9. **Promises**: Promises provide a more elegant way of working with asynchronous operations, allowing for better handling of success and error scenarios.
+
+10. **Iterators and Generators**: ES6 introduced new iterator and generator protocols, which provide a standardized way of iterating over data and creating iterable objects.
+
+These are just a few of the major features introduced in ES6. Overall, ES6 brought significant improvements to JavaScript, making it more expressive and providing developers with more powerful tools for building complex applications.
+
+💡 **Q.5** The main difference between `let` and `const` lies in their mutability:
+
+- `let` allows variable reassignment, meaning the value can be changed after it is initially assigned.
+
+- `const` is used for variables that are meant to be constant or immutable. Once a value is assigned to a `const` variable, it cannot be reassigned.
+
+For example:
+
+```javascript
+let x = 10;
+x = 20; // Valid
+
+const y = 10;
+y = 20; // Error: Assignment to constant variable
+```
+
+In this case, reassigning the value of `x` is allowed because it was declared with `let`. On the other hand, trying to reassign the value of `y`, which was declared with `const`, results in an error.
+
+It's important to note that while `const` prevents reassignment of the variable itself, it does not make the assigned value immutable. If the assigned value is an object or array, its properties or elements can still be modified. The immutability only applies to the binding between the variable and its value.
+
+💡 **Q.6** Template literals, introduced in ES6, provide an easier way to work with strings in JavaScript by allowing string interpolation and multiline strings. They are created using backticks (`) instead of single or double quotes.
+
+Here's an example:
+
+```javascript
+const name = "John";
+const age = 30;
+
+const message = `My name is ${name} and I'm ${age} years old.`;
+
+console.log(message);
+```
+
+In this example, the template literal is used to create the `message` string. The variables `name` and `age` are inserted into the string using the `${}` syntax, which allows for easy interpolation of values within the string. The resulting output will be:
+
+```
+My name is John and I'm 30 years old.
+```
+
+Template literals also support multiline strings, allowing you to write strings spanning multiple lines without needing explicit line breaks:
+
+```javascript
+const multiline = `
+  This
+
+is a
+multiline
+string.
+`;
+
+console.log(multiline);
+```
+
+In this case, the `multiline` variable contains a string that spans multiple lines without the need for explicit line breaks. The resulting output will preserve the line breaks:
+
+```
+This
+is a
+multiline
+string.
+```
+
+Template literals provide a more flexible and readable way to work with strings in JavaScript compared to concatenation or string manipulation.
+
+💡 **Q.7** The `map()` and `forEach()` methods are both used to iterate over arrays in JavaScript, but they have some differences in terms of their functionality and return values.
+
+- `forEach()`: The `forEach()` method calls a provided function once for each element in an array. It executes the provided function in sequential order and does not return a new array. It is typically used when you want to perform an action for each element in the array but do not need to transform the array itself.
+
+Example using `forEach()`:
+
+```javascript
+const numbers = [1, 2, 3, 4, 5];
+
+numbers.forEach((number) => {
+  console.log(number * 2);
+});
+```
+
+Output:
+
+```
+2
+4
+6
+8
+10
+```
+
+- `map()`: The `map()` method creates a new array by calling a provided function on each element in the original array. It applies the function to each element and returns the results as a new array. It is useful when you want to transform the elements of an array and create a modified version of the array.
+
+Example using `map()`:
+
+```javascript
+const numbers = [1, 2, 3, 4, 5];
+
+const doubledNumbers = numbers.map((number) => {
+  return number * 2;
+});
+
+console.log(doubledNumbers);
+```
+
+Output:
+
+```
+[2, 4, 6, 8, 10]
+```
+
+In this example, `map()` is used to create a new array `doubledNumbers` by multiplying each element of the `numbers` array by 2.
+
+In summary, `forEach()` is used for iterating over an array and performing an action on each element, while `map()` is used for transforming the elements of an array and creating a new array based on the transformation.
+
+💡 **Q.8** Destructuring assignment is a feature introduced in ES6 that allows you to extract values from arrays or properties from objects into distinct variables. It provides a more concise syntax for working with complex data structures.
+
+**Destructuring Arrays**:
+
+```javascript
+const numbers = [1, 2, 3, 4, 5];
+
+const [a, b, ...rest] = numbers;
+
+console.log(a);      // 1
+console.log(b);      // 2
+console.log(rest);   // [3, 4, 5]
+```
+
+In this example, the variables `a` and `b` are assigned the first two elements of the `numbers` array, while the rest of the elements are collected into the `rest` variable using the rest parameter syntax (`...`).
+
+**Destructuring Objects**:
+
+```javascript
+const person = {
+  name: "John",
+  age: 30,
+  city: "New York"
+};
+
+const { name, age, city } = person;
+
+console.log(name);   // "John"
+console.log(age);    // 30
+console.log(city);   // "New York"
+```
+
+In this example, the variables `name`, `age`, and `city` are assigned the corresponding property values from the `person` object. The variable names match the property names, allowing for direct assignment.
+
+Destructuring can also be combined with default values and nested structures to extract specific values from arrays or objects.
+
+💡 **Q.9** Default parameter values allow you to specify default values for function parameters in case no value or `undefined` is provided for them. ES6 introduced a simpler syntax for defining default parameter values in functions.
+
+Here's an example:
+
+```javascript
+function greet(name = "Guest") {
+  console.log(`Hello, ${name}!`);
+}
+
+greet();          // "Hello, Guest!"
+greet("John");    // "Hello, John!"
+```
+
+In this example, the `greet()` function has a `name` parameter with a default value of `"Guest"`. If no argument is passed when calling `greet()`, it uses the default value. If an argument is provided, it overrides the default value.
+
+Default parameter values can also depend on the values of other parameters:
+
+```javascript
+function add(a, b = a) {
+  return a + b;
+}
+
+console.log(add(2, 3));    // 5
+console.log(add(5));       // 10 (b defaults to the value of a)
+```
+
+In this case, the `add()` function has two parameters, `a` and `b`. The default value of `b` is set to the value of `a`, allowing the function to be called with only one argument. If only one argument is provided, it is used for both `a` and `b`.
+
+Default parameter values provide a convenient way to define fallback values or simplify function calls when certain arguments are optional.
+
+💡 **Q.10** The spread operator (`...`) is a feature introduced in ES6 that allows for the expansion of elements in arrays and objects. It provides a concise syntax for copying or combining elements.
+
+**Spread in Arrays**:
+
+```javascript
+const numbers = [1, 2, 3];
+
+const combined = [...numbers, 4, 5];
+
+console.log(combined);    // [1, 2, 3, 4, 5]
+```
+
+In this example, the spread operator is used to expand the `numbers` array and combine it with additional elements `[4, 5]`. The resulting `combined` array contains all the elements from `numbers` as well as the additional elements.
+
+The spread operator can also be used to make copies of arrays:
+
+```javascript
+const numbers = [1, 2, 3];
+const copy = [...numbers];
+
+console.log(copy);    // [1, 2, 3]
+console.log(copy === numbers);    // false (copy is a new array)
+```
+
+Here, the spread operator is used to create a copy of the `numbers` array, resulting in a separate array `copy`.
+
+**Spread in Objects**:
+
+```javascript
+const person = {
+  name: "John",
+  age: 30
+};
+
+const copiedPerson = { ...person };
+
+console.log(copiedPerson);    // { name: "John", age: 30 }
+console.log(copiedPerson === person);    // false (copiedPerson is a new object)
+```
+
+In this example, the spread operator is used to create a copy of the `person` object, resulting in a separate object `copiedPerson`.
+
+The spread operator provides a convenient way to clone or combine arrays and objects without modifying the original data.
